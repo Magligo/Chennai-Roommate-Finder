@@ -7,91 +7,81 @@
     <title>Messages | ChennaiRooms</title>
     <link rel="stylesheet" href="css/glow.css">
     <style>
-        .messages-layout {
-            padding: 90px 0 40px;
-            min-height: 100vh;
-        }
+        .messages-layout { padding: 30px 0 40px; min-height: 100vh; }
 
         .messages-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.25rem;
         }
 
         .chat-container {
             display: flex;
-            gap: 1.25rem;
-            height: calc(100vh - 200px);
-            min-height: 520px;
+            gap: 1rem;
+            height: calc(100vh - 180px);
+            min-height: 500px;
         }
 
-        /* Sidebar */
+        @media (max-width: 768px) {
+            .chat-container { flex-direction: column; height: auto; min-height: unset; }
+        }
+
         .conv-sidebar {
-            width: 300px;
+            width: 290px;
             flex-shrink: 0;
-            background: rgba(15, 15, 35, 0.85);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            overflow: hidden;
+            border-radius: var(--radius);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .conv-sidebar { width: 100%; height: 260px; }
         }
 
         .sidebar-head {
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.1rem;
             border-bottom: 1px solid var(--border);
             font-weight: 700;
             font-size: 0.9rem;
-            color: var(--white);
-            background: rgba(124, 58, 237, 0.08);
+            color: var(--text);
+            background: #fafafa;
         }
 
-        .conv-list {
-            flex: 1;
-            overflow-y: auto;
-        }
+        .conv-list { flex: 1; overflow-y: auto; }
 
         .conv-item {
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.1rem;
             cursor: pointer;
             border-left: 3px solid transparent;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            transition: background 0.2s, border-color 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s;
         }
 
-        .conv-item:hover {
-            background: rgba(124, 58, 237, 0.08);
-        }
+        .conv-item:hover { background: #f8f8f8; }
 
         .conv-item.active {
-            background: rgba(124, 58, 237, 0.14);
-            border-left-color: var(--purple-l);
+            background: #eff6ff;
+            border-left-color: var(--primary);
         }
 
-        .conv-name {
-            font-weight: 700;
-            font-size: 0.875rem;
-            color: var(--white);
-        }
-
-        .conv-room {
-            font-size: 0.75rem;
-            color: var(--cyan-l);
-            margin-top: 0.2rem;
-        }
+        .conv-name { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+        .conv-room { font-size: 0.75rem; color: var(--primary); margin-top: 0.15rem; }
 
         .conv-preview {
             font-size: 0.775rem;
             color: var(--text-muted);
-            margin-top: 0.2rem;
+            margin-top: 0.15rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .conv-badge {
-            background: var(--purple);
+            background: var(--primary);
             color: #fff;
             font-size: 0.7rem;
             font-weight: 700;
@@ -100,27 +90,24 @@
         }
 
         .conv-empty {
-            padding: 3rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             color: var(--text-muted);
             font-size: 0.875rem;
         }
 
-        .conv-empty-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            opacity: 0.4;
-        }
-
-        /* Chat Panel */
         .chat-panel {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: rgba(15, 15, 35, 0.85);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
+            border-radius: var(--radius);
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .chat-panel { height: 450px; }
         }
 
         .chat-placeholder {
@@ -130,107 +117,73 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            gap: 0.75rem;
+            gap: 0.5rem;
+            background: #fafafa;
         }
 
-        .chat-placeholder-icon {
-            font-size: 3rem;
-            opacity: 0.3;
-        }
-
-        .chat-view {
-            display: none;
-            flex-direction: column;
-            height: 100%;
-        }
+        .chat-view { display: none; flex-direction: column; height: 100%; }
 
         .chat-head {
-            padding: 1rem 1.5rem;
+            padding: 0.85rem 1.1rem;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
-            gap: 0.875rem;
-            background: rgba(124, 58, 237, 0.07);
+            gap: 0.75rem;
+            background: #fafafa;
         }
 
         .chat-avatar {
             width: 38px;
             height: 38px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #fff;
-            box-shadow: 0 0 16px rgba(124, 58, 237, 0.5);
-        }
-
-        .chat-name {
             font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--white);
+            font-size: 0.95rem;
+            color: #fff;
         }
 
-        .chat-room-label {
-            font-size: 0.75rem;
-            color: var(--cyan-l);
-        }
+        .chat-name { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+        .chat-room-label { font-size: 0.8rem; color: var(--text-muted); }
 
         .chat-thread {
             flex: 1;
             overflow-y: auto;
-            padding: 1.25rem 1.5rem;
+            padding: 1.1rem;
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
-            scroll-behavior: smooth;
+            background: var(--bg);
         }
 
         .bubble-sent {
             align-self: flex-end;
-            max-width: 72%;
-            background: linear-gradient(135deg, var(--purple), #6d28d9);
+            max-width: 70%;
+            background: var(--primary);
             color: #fff;
-            border-radius: 18px 18px 4px 18px;
-            padding: 0.65rem 1rem;
-            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+            border-radius: 12px 12px 2px 12px;
+            padding: 0.65rem 0.9rem;
         }
 
         .bubble-recv {
             align-self: flex-start;
-            max-width: 72%;
-            background: rgba(255, 255, 255, 0.07);
+            max-width: 70%;
+            background: var(--paper);
             color: var(--text);
-            border-radius: 18px 18px 18px 4px;
             border: 1px solid var(--border);
-            padding: 0.65rem 1rem;
+            border-radius: 12px 12px 12px 2px;
+            padding: 0.65rem 0.9rem;
         }
 
-        .bubble-text {
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-
-        .bubble-time {
-            font-size: 0.7rem;
-            margin-top: 0.3rem;
-            text-align: right;
-        }
-
-        .bubble-sent .bubble-time {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .bubble-recv .bubble-time {
-            color: var(--text-muted);
-        }
+        .bubble-text { font-size: 0.9rem; line-height: 1.5; }
+        .bubble-time { font-size: 0.72rem; margin-top: 0.3rem; text-align: right; opacity: 0.65; }
 
         .chat-input-area {
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.1rem;
             border-top: 1px solid var(--border);
-            background: rgba(10, 10, 20, 0.6);
+            background: var(--paper);
             display: flex;
             gap: 0.75rem;
             align-items: flex-end;
@@ -238,83 +191,70 @@
 
         .chat-input-area textarea {
             flex: 1;
-            padding: 0.75rem 1rem;
-            background: rgba(255, 255, 255, 0.06);
+            padding: 0.65rem 0.9rem;
+            background: #f9f9f9;
             border: 1px solid var(--border);
-            border-radius: 0.875rem;
+            border-radius: var(--radius);
             color: var(--text);
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             resize: none;
             outline: none;
-            max-height: 120px;
+            max-height: 100px;
             font-family: inherit;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
-        .chat-input-area textarea::placeholder {
-            color: var(--text-muted);
-        }
-
-        .chat-input-area textarea:focus {
-            border-color: var(--purple-l);
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
-        }
+        .chat-input-area textarea:focus { border-color: var(--primary); }
     </style>
 </head>
 
 <body>
     <nav class="glow-nav">
         <div class="glow-nav-inner">
-            <a href="index.html" class="glow-logo">⚡ ChennaiRooms</a>
+            <a href="index.html" class="glow-logo">🏠 ChennaiRooms</a>
             <div class="nav-links" id="nav-links"></div>
         </div>
     </nav>
 
-    <div class="messages-layout">
-        <div class="content-wrap">
-            <div class="messages-header">
-                <div>
-                    <h1 class="glow-title" style="font-size:1.9rem;">💬 Messages</h1>
-                    <p class="glow-subtitle" style="font-size:0.9rem;">Your direct conversations with room owners and
-                        seekers.</p>
+    <div class="messages-layout content-wrap">
+        <div class="messages-header">
+            <div>
+                <h1 style="font-size:1.5rem;font-weight:700;color:var(--text);">Messages</h1>
+                <p style="color:var(--text-muted);font-size:0.875rem;margin-top:0.2rem;">Your conversations with room owners and seekers.</p>
+            </div>
+            <a href="rooms.html" class="btn-glow-purple">Find Rooms</a>
+        </div>
+
+        <div class="chat-container">
+            <div class="conv-sidebar">
+                <div class="sidebar-head">Inbox</div>
+                <div class="conv-list" id="conv-list">
+                    <div class="conv-empty" id="conv-empty">
+                        <p style="font-size:1.5rem;margin-bottom:0.5rem;">💬</p>
+                        <p style="font-weight:600;color:var(--text);margin-bottom:0.2rem;">No conversations yet</p>
+                        <p>Message a room owner to start.</p>
+                    </div>
                 </div>
-                <a href="rooms.html" class="btn-glow-purple" style="padding:0.6rem 1.2rem;">🏠 Find Rooms</a>
             </div>
 
-            <div class="chat-container">
-                <!-- Sidebar -->
-                <div class="conv-sidebar">
-                    <div class="sidebar-head">📬 Inbox</div>
-                    <div class="conv-list" id="conv-list">
-                        <div class="conv-empty" id="conv-empty">
-                            <div class="conv-empty-icon">💬</div>
-                            <p style="font-weight:600;color:var(--text);">No conversations yet</p>
-                            <p style="margin-top:0.3rem;">Message a room owner to start.</p>
-                        </div>
-                    </div>
+            <div class="chat-panel">
+                <div class="chat-placeholder" id="chat-placeholder">
+                    <p style="font-size:2rem;">💬</p>
+                    <p style="font-weight:600;color:var(--text);">Select a conversation</p>
+                    <p style="font-size:0.875rem;">to read and reply</p>
                 </div>
-
-                <!-- Chat Panel -->
-                <div class="chat-panel">
-                    <div class="chat-placeholder" id="chat-placeholder">
-                        <div class="chat-placeholder-icon">🗨️</div>
-                        <p style="font-weight:600;color:var(--text);">Select a conversation</p>
-                        <p style="font-size:0.85rem;">to read and reply</p>
+                <div class="chat-view" id="chat-view">
+                    <div class="chat-head">
+                        <div class="chat-avatar" id="chat-avatar">?</div>
+                        <div>
+                            <div class="chat-name" id="chat-name">—</div>
+                            <div class="chat-room-label" id="chat-room">—</div>
+                        </div>
                     </div>
-                    <div class="chat-view" id="chat-view">
-                        <div class="chat-head">
-                            <div class="chat-avatar" id="chat-avatar">?</div>
-                            <div>
-                                <div class="chat-name" id="chat-name">—</div>
-                                <div class="chat-room-label" id="chat-room">—</div>
-                            </div>
-                        </div>
-                        <div class="chat-thread" id="chat-thread"></div>
-                        <div class="chat-input-area">
-                            <textarea id="msg-input" rows="2" placeholder="Type your message…"></textarea>
-                            <button id="send-btn" onclick="sendReply()" class="btn-glow-purple"
-                                style="padding:0.75rem 1.25rem;flex-shrink:0;">✈️ Send</button>
-                        </div>
+                    <div class="chat-thread" id="chat-thread"></div>
+                    <div class="chat-input-area">
+                        <textarea id="msg-input" rows="2" placeholder="Type your message…"></textarea>
+                        <button id="send-btn" onclick="sendReply()" class="btn-glow-purple" style="flex-shrink:0;">Send</button>
                     </div>
                 </div>
             </div>
@@ -339,9 +279,6 @@
                 const empty = document.getElementById('conv-empty');
                 if (!convs || convs.length === 0) {
                     empty.style.display = 'block';
-                    if (openConvId) {
-                        empty.querySelector('p:first-of-type').textContent = 'Conversation not found';
-                    }
                     return;
                 }
                 empty.style.display = 'none';
@@ -351,7 +288,7 @@
                     card.id = `conv-${c.id}`;
                     card.className = 'conv-item';
                     card.innerHTML = `
-                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.2rem;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.15rem;">
                             <span class="conv-name">${c.other_user_name || 'User'}</span>
                             ${c.unread_count > 0 ? `<span class="conv-badge">${c.unread_count}</span>` : ''}
                         </div>
@@ -369,7 +306,7 @@
                 console.error('Failed to load conversations:', e);
                 const empty = document.getElementById('conv-empty');
                 empty.style.display = 'block';
-                empty.innerHTML = `<div class="conv-empty"><div class="conv-empty-icon">⚠️</div><p style="color:#f87171;font-weight:600;">Could not load</p><p>${e.message && e.message.toLowerCase().includes('failed to fetch') ? 'Backend not running on port 5000.' : e.message}</p></div>`;
+                empty.innerHTML = `<div class="conv-empty" style="color:var(--danger);"><p style="font-weight:600;margin-bottom:0.5rem;">Could not load</p><p>${e.message && e.message.toLowerCase().includes('failed to fetch') ? 'Backend not running on port 5000.' : e.message}</p></div>`;
             }
         }
 
@@ -378,30 +315,33 @@
             document.querySelectorAll('.conv-item').forEach(el => el.classList.remove('active'));
             const card = document.getElementById(`conv-${conv.id}`);
             if (card) card.classList.add('active');
+
             document.getElementById('chat-avatar').textContent = (conv.other_user_name || 'U')[0].toUpperCase();
             document.getElementById('chat-name').textContent = conv.other_user_name || 'User';
             document.getElementById('chat-room').textContent = `📍 ${conv.room_title || 'Room'}`;
+
             document.getElementById('chat-placeholder').style.display = 'none';
             const cv = document.getElementById('chat-view');
             cv.style.display = 'flex';
+
             await fetchMessages(conv.id);
             messages.markRead(conv.id).catch(() => { });
         }
 
         async function fetchMessages(convId) {
             const thread = document.getElementById('chat-thread');
-            thread.innerHTML = '<p style="text-align:center;color:var(--text-muted);font-size:0.85rem;">Loading…</p>';
+            thread.innerHTML = '<p style="text-align:center;color:var(--text-muted);font-size:0.875rem;margin-top:2rem;">Loading messages...</p>';
             try {
                 const msgs = await messages.getMessagesByConversation(convId);
                 thread.innerHTML = '';
                 if (!msgs || msgs.length === 0) {
-                    thread.innerHTML = '<p style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:2rem;">No messages yet. Say hello! 👋</p>';
+                    thread.innerHTML = '<p style="text-align:center;color:var(--text-muted);font-size:0.875rem;margin-top:2rem;">No messages yet. Say hello! 👋</p>';
                     return;
                 }
                 msgs.forEach(m => renderBubble(m, thread));
                 thread.scrollTop = thread.scrollHeight;
             } catch (e) {
-                thread.innerHTML = '<p style="text-align:center;color:#f87171;font-size:0.85rem;">Could not load messages.</p>';
+                thread.innerHTML = '<p style="text-align:center;color:var(--danger);font-size:0.875rem;margin-top:2rem;">Could not load messages.</p>';
             }
         }
 
@@ -424,17 +364,26 @@
             const input = document.getElementById('msg-input');
             const text = input.value.trim();
             if (!text || !activeConvId) return;
+
             const btn = document.getElementById('send-btn');
-            btn.disabled = true; btn.textContent = 'Sending…';
+            const originalContent = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '...';
+
             try {
                 await messages.sendMessage(activeConvId, text);
                 input.value = '';
-                btn.disabled = false; btn.textContent = '✈️ Send';
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+
                 const thread = document.getElementById('chat-thread');
+                if (thread.innerHTML.includes('No messages yet')) { thread.innerHTML = ''; }
+
                 renderBubble({ sender_id: user.id, message_text: text, created_at: new Date().toISOString() }, thread);
                 thread.scrollTop = thread.scrollHeight;
             } catch (e) {
-                btn.disabled = false; btn.textContent = '✈️ Send';
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
                 alert('Failed to send: ' + e.message);
             }
         }

@@ -18,12 +18,11 @@
         .auth-card {
             width: 100%;
             max-width: 520px;
-            background: rgba(15, 15, 35, 0.9);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.75rem;
-            padding: 2.5rem;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 80px rgba(124, 58, 237, 0.1);
-            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
         }
 
         .auth-header {
@@ -32,10 +31,10 @@
         }
 
         .auth-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--white);
-            margin-top: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-top: 0.5rem;
         }
 
         .auth-sub {
@@ -60,11 +59,11 @@
 
         .error-box {
             display: none;
-            padding: 0.85rem 1rem;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 0.875rem;
-            color: #f87171;
+            padding: 0.65rem 0.9rem;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius);
+            color: var(--danger);
             font-size: 0.875rem;
             margin-bottom: 1rem;
         }
@@ -77,13 +76,9 @@
         }
 
         .auth-footer a {
-            color: var(--purple-l);
+            color: var(--primary);
             font-weight: 600;
             text-decoration: none;
-        }
-
-        .auth-footer a:hover {
-            text-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
         }
     </style>
 </head>

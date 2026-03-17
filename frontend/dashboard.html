@@ -7,199 +7,125 @@
     <title>Dashboard | ChennaiRooms</title>
     <link rel="stylesheet" href="css/glow.css">
     <style>
-        .page-wrap {
-            padding: 90px 0 60px;
-        }
+        .page-wrap { padding: 30px 0 60px; }
 
-        .dash-header {
-            margin-bottom: 2rem;
-        }
+        .dash-header { margin-bottom: 1.5rem; }
 
         .dash-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
         }
 
-        .dash-title span {
-            background: linear-gradient(135deg, var(--purple-l), var(--cyan-l));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .dash-title span { color: var(--primary); }
 
-        /* Stat Cards */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .stat-card {
-            background: rgba(15, 15, 35, 0.85);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
-            padding: 1.5rem;
+            border-radius: var(--radius);
+            padding: 1.25rem;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(12px);
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(124, 58, 237, 0.5);
         }
 
         .stat-label {
             font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
             margin-bottom: 0.5rem;
         }
 
         .stat-num {
-            font-size: 2.25rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        .stat-purple {
-            color: var(--purple-l);
-            text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
-        }
-
-        .stat-cyan {
-            color: var(--cyan-l);
-            text-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-        }
-
-        .stat-pink {
-            color: var(--pink-l);
-            text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
-        }
-
-        /* Main grid */
         .dash-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
+            gap: 1rem;
         }
 
         @media (max-width: 768px) {
-            .dash-grid {
-                grid-template-columns: 1fr;
-            }
+            .dash-grid { grid-template-columns: 1fr; }
         }
 
         .dash-panel {
-            background: rgba(15, 15, 35, 0.85);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.25rem;
+            border-radius: var(--radius);
             overflow: hidden;
         }
 
         .panel-head {
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.1rem;
             border-bottom: 1px solid var(--border);
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--white);
-            background: rgba(124, 58, 237, 0.07);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+            background: #fafafa;
         }
 
-        .panel-body {
-            padding: 1.25rem;
-        }
+        .panel-body { padding: 1.1rem; }
 
-        /* Requests */
         .req-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.875rem 1rem;
-            background: rgba(255, 255, 255, 0.04);
+            padding: 0.75rem;
             border: 1px solid var(--border);
-            border-radius: 0.75rem;
-            margin-bottom: 0.75rem;
+            border-radius: var(--radius);
+            margin-bottom: 0.6rem;
+            background: #fafafa;
         }
 
-        .req-name {
-            font-weight: 700;
-            font-size: 0.875rem;
-            color: var(--white);
-        }
+        .req-name { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+        .req-loc { font-size: 0.775rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-        .req-loc {
-            font-size: 0.775rem;
-            color: var(--text-muted);
-            margin-top: 0.15rem;
-        }
-
-        /* Quick Links */
         .quick-link {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            margin-bottom: 0.75rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid transparent;
-            border-radius: 0.875rem;
+            gap: 0.85rem;
+            padding: 0.85rem;
+            margin-bottom: 0.6rem;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             text-decoration: none;
-            transition: background 0.2s, border-color 0.2s;
+            transition: background 0.2s;
         }
 
-        .quick-link:hover {
-            background: rgba(124, 58, 237, 0.08);
-            border-color: var(--border);
-        }
+        .quick-link:hover { background: #f0f0f0; }
 
         .quick-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 0.75rem;
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
+            background: #e8f0ff;
         }
 
-        .qi-purple {
-            background: rgba(124, 58, 237, 0.2);
-            box-shadow: 0 0 16px rgba(124, 58, 237, 0.25);
-        }
-
-        .qi-cyan {
-            background: rgba(6, 182, 212, 0.15);
-            box-shadow: 0 0 16px rgba(6, 182, 212, 0.2);
-        }
-
-        .qi-pink {
-            background: rgba(236, 72, 153, 0.15);
-            box-shadow: 0 0 16px rgba(236, 72, 153, 0.2);
-        }
-
-        .quick-link-title {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--white);
-        }
-
-        .quick-link-sub {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
+        .quick-link-title { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+        .quick-link-sub { font-size: 0.775rem; color: var(--text-muted); }
     </style>
 </head>
 
 <body>
     <nav class="glow-nav">
         <div class="glow-nav-inner">
-            <a href="index.html" class="glow-logo">⚡ ChennaiRooms</a>
+            <a href="index.html" class="glow-logo">🏠 ChennaiRooms</a>
             <div class="nav-links" id="nav-links"></div>
         </div>
     </nav>
@@ -208,26 +134,25 @@
         <div class="content-wrap">
             <div class="dash-header">
                 <h1 class="dash-title">Welcome back, <span id="welcome-name">User</span>! 👋</h1>
-                <p class="text-muted" style="margin-top:0.4rem;">Here's what's happening with your roommate search.</p>
+                <p style="color:var(--text-muted);font-size:0.9rem;margin-top:0.25rem;">Here's what's happening with your roommate search.</p>
             </div>
 
             <div class="stats-row">
                 <div class="stat-card">
                     <div class="stat-label">🔔 Incoming Requests</div>
-                    <div class="stat-num stat-purple" id="req-count">0</div>
+                    <div class="stat-num" id="req-count">0</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">💬 Conversations</div>
-                    <div class="stat-num stat-cyan" id="msg-count">0</div>
+                    <div class="stat-num" id="msg-count">0</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">🏠 Your Posts</div>
-                    <div class="stat-num stat-pink" id="post-count">0</div>
+                    <div class="stat-num" id="post-count">0</div>
                 </div>
-                <div class="stat-card" style="justify-content:center;align-items:flex-start;">
-                    <div class="stat-label" style="margin-bottom:0.75rem;">➕ New Post</div>
-                    <a href="post-room.html" class="btn-glow-purple"
-                        style="padding:0.55rem 1.1rem;font-size:0.85rem;">Post a Room</a>
+                <div class="stat-card" style="justify-content:center;">
+                    <div class="stat-label" style="margin-bottom:0.6rem;">➕ Quick Action</div>
+                    <a href="post-room.html" class="btn-glow-purple" style="padding:0.5rem 1rem;font-size:0.85rem;">Post a Room</a>
                 </div>
             </div>
 
@@ -235,8 +160,7 @@
                 <div class="dash-panel">
                     <div class="panel-head">📋 Recent Requests</div>
                     <div class="panel-body" id="requests-list">
-                        <p style="color:var(--text-muted);text-align:center;padding:2rem 0;font-size:0.875rem;">No
-                            requests found.</p>
+                        <p style="color:var(--text-muted);text-align:center;padding:1.5rem 0;font-size:0.875rem;">No requests found.</p>
                     </div>
                 </div>
 
@@ -244,21 +168,21 @@
                     <div class="panel-head">⚡ Quick Actions</div>
                     <div class="panel-body">
                         <a href="rooms.html" class="quick-link">
-                            <div class="quick-icon qi-purple">🔍</div>
+                            <div class="quick-icon">🔍</div>
                             <div>
                                 <div class="quick-link-title">Find Rooms</div>
                                 <div class="quick-link-sub">Search available rooms in Chennai</div>
                             </div>
                         </a>
                         <a href="messages.html" class="quick-link">
-                            <div class="quick-icon qi-cyan">💬</div>
+                            <div class="quick-icon">💬</div>
                             <div>
                                 <div class="quick-link-title">Check Messages</div>
                                 <div class="quick-link-sub">Contact potential roommates</div>
                             </div>
                         </a>
                         <a href="post-room.html" class="quick-link">
-                            <div class="quick-icon qi-pink">🏠</div>
+                            <div class="quick-icon">🏠</div>
                             <div>
                                 <div class="quick-link-title">Post Your Room</div>
                                 <div class="quick-link-sub">Let others find your listing</div>
@@ -297,11 +221,11 @@
                                 <div class="req-name">${r.requester_name}</div>
                                 <div class="req-loc">📍 ${r.location}</div>
                             </div>
-                            <div style="display:flex;gap:0.5rem;">
+                            <div style="display:flex;gap:0.4rem;">
                                 ${r.status === 'pending' ? `
-                                    <button onclick="updateReq(${r.id},'accepted')" style="background:rgba(16,185,129,0.15);color:#34d399;border:1px solid rgba(16,185,129,0.3);padding:0.3rem 0.8rem;border-radius:0.5rem;font-size:0.8rem;font-weight:700;cursor:pointer;">Accept</button>
-                                    <button onclick="updateReq(${r.id},'rejected')" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);padding:0.3rem 0.8rem;border-radius:0.5rem;font-size:0.8rem;font-weight:700;cursor:pointer;">Reject</button>
-                                ` : `<span style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:capitalize;">${r.status}</span>`}
+                                    <button onclick="updateReq(${r.id},'accepted')" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;padding:0.3rem 0.75rem;border-radius:6px;font-size:0.8rem;font-weight:600;cursor:pointer;">Accept</button>
+                                    <button onclick="updateReq(${r.id},'rejected')" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;padding:0.3rem 0.75rem;border-radius:6px;font-size:0.8rem;font-weight:600;cursor:pointer;">Reject</button>
+                                ` : `<span style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:capitalize;">${r.status}</span>`}
                             </div>
                         </div>
                     `).join('');

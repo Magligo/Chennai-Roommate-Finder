@@ -7,19 +7,16 @@
     <title>Post Room | ChennaiRooms</title>
     <link rel="stylesheet" href="css/glow.css">
     <style>
-        .page-wrap {
-            padding: 90px 0 60px;
-        }
+        .page-wrap { padding: 30px 0 60px; }
 
         .form-card {
             max-width: 640px;
             margin: 0 auto;
-            background: rgba(15, 15, 35, 0.88);
+            background: var(--paper);
             border: 1px solid var(--border);
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(124, 58, 237, 0.08);
-            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
         }
 
         .form-grid {
@@ -40,38 +37,31 @@
 
         .error-box {
             display: none;
-            padding: 0.85rem 1rem;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 0.875rem;
-            color: #f87171;
+            padding: 0.65rem 0.9rem;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius);
+            color: var(--danger);
             font-size: 0.875rem;
             margin-bottom: 1rem;
         }
 
-        /* Override glow-input for select */
-        select.glow-input option {
-            background: #13132a;
-            color: var(--text);
-        }
+        select.glow-input option { background: #fff; color: var(--text); }
 
         .upload-area {
             width: 100%;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px dashed rgba(124, 58, 237, 0.35);
-            border-radius: 0.875rem;
+            padding: 1.25rem;
+            background: #fafafa;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
             text-align: center;
             cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
+            transition: border-color 0.2s;
             color: var(--text-muted);
             font-size: 0.875rem;
         }
 
-        .upload-area:hover {
-            border-color: var(--purple-l);
-            background: rgba(124, 58, 237, 0.06);
-        }
+        .upload-area:hover { border-color: var(--primary); }
 
         input[type="file"] {
             display: none;
